@@ -1,52 +1,60 @@
-# 🌿 NôngSản Sạch – Website Bán Nông Sản Hữu Cơ
+# 🌿 NôngSản Sạch
 
-Website bán nông sản sạch hiện đại, xây dựng với React + MUI + Font Awesome.
+Website bán nông sản hữu cơ – React + MUI + Node.js + MongoDB + Cloudinary.
 
-## Tính năng
+## Cấu trúc project
 
-- 🏠 **Trang chủ**: Hero banner với nhúng video YouTube, danh mục, sản phẩm nổi bật, đánh giá khách hàng
-- 🛒 **Sản phẩm**: Lọc theo danh mục, tìm kiếm, khoảng giá, sắp xếp
-- 🛍️ **Giỏ hàng**: Thêm/bớt số lượng, mã giảm giá, thanh toán
-- 🔐 **Trang Admin**: Quản lý sản phẩm (thêm/sửa/xoá), cài đặt link YouTube
+```
+nongsan-sach/
+├── src/               # Frontend (React + Vite + MUI)
+└── server/            # Backend (Express + MongoDB)
+```
 
 ## Cài đặt & Chạy
 
+### 1. Frontend
 ```bash
+cp .env.example .env     # Điền VITE_API_URL
 npm install
-npm run dev
+npm run dev              # http://localhost:5173
 ```
 
-Mở trình duyệt: http://localhost:5173
+### 2. Backend
+```bash
+cd server
+cp .env.example .env     # Điền MongoDB URI + Cloudinary keys
+npm install
+npm run dev              # http://localhost:5000
+```
 
-## Đăng nhập Admin
+## Biến môi trường
 
+### Frontend (.env)
+```
+VITE_API_URL=http://localhost:5000
+```
+
+### Backend (server/.env)
+```
+PORT=5000
+MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/nongsan-sach
+CLOUDINARY_CLOUD_NAME=...
+CLOUDINARY_API_KEY=...
+CLOUDINARY_API_SECRET=...
+FRONTEND_URL=http://localhost:5173
+```
+
+## Tính năng
+
+- 🏠 Trang chủ: Hero + YouTube embed + Categories + Featured products
+- 🛒 Sản phẩm: Tìm kiếm, lọc danh mục, khoảng giá, sắp xếp
+- 🔍 Chi tiết sản phẩm: Gallery ảnh thực tế + zoom + lightbox
+- 🛍️ Giỏ hàng: Mã giảm giá, tính phí ship
+- 🔐 Admin: CRUD sản phẩm + upload ảnh Cloudinary + cài đặt YouTube
+
+## Admin
 - URL: Nhấn nút **Admin** trên navbar
 - Mật khẩu: `admin123`
 
-## Nhúng Video YouTube
-
-1. Đăng nhập Admin
-2. Vào tab **Cài đặt**
-3. Dán link YouTube vào ô "Link YouTube"
-4. Nhấn **Lưu cài đặt**
-
-Hỗ trợ các định dạng:
-- `https://www.youtube.com/watch?v=VIDEO_ID`
-- `https://youtu.be/VIDEO_ID`
-- `https://www.youtube.com/embed/VIDEO_ID`
-
 ## Mã giảm giá (demo)
-
-| Mã | Giảm giá |
-|----|----------|
-| `NONGSANSACH10` | 10% |
-| `WELCOME20` | 20% |
-| `HEALTHY15` | 15% |
-
-## Stack
-
-- **React** 18 + Vite
-- **MUI** (Material UI) v5
-- **Font Awesome** 6.5 (CDN)
-- **Be Vietnam Pro** (Google Fonts)
-- State management: React Context
+`NONGSANSACH10` · `WELCOME20` · `HEALTHY15`
