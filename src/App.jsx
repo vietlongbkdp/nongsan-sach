@@ -1,4 +1,4 @@
-import { ThemeProvider, CssBaseline, Box, CircularProgress, Alert, Typography } from '@mui/material'
+import { ThemeProvider, CssBaseline, Box, Alert } from '@mui/material'
 import theme from './theme'
 import { AppProvider, useApp } from './context/AppContext'
 import Navbar from './components/Navbar'
@@ -10,22 +10,13 @@ import Cart from './pages/Cart'
 import Admin from './pages/Admin'
 
 function AppContent() {
-  const { page, loading, apiError } = useApp()
-
-  if (loading) return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
-      <CircularProgress color="primary" size={48} thickness={4} />
-      <Typography sx={{ color: 'text.secondary', fontSize: 15 }}>Đang tải dữ liệu...</Typography>
-    </Box>
-  )
-
+  const { page, apiError } = useApp()
+  // Không chặn render vì loading — mỗi trang tự xử lý skeleton
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', bgcolor: 'background.default' }}>
       <Navbar />
       {apiError && (
-        <Alert severity="warning" sx={{ borderRadius: 0 }}>
-          ⚠️ {apiError}
-        </Alert>
+        <Alert severity="warning" sx={{ borderRadius: 0 }}>⚠️ {apiError}</Alert>
       )}
       <Box component="main" sx={{ flex: 1 }}>
         {page === 'home'     && <Home />}

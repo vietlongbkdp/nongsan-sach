@@ -6,6 +6,7 @@ import {
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import VerifiedIcon from '@mui/icons-material/Verified'
 import ProductCard from '../components/ProductCard'
+import ProductCardSkeleton from '../components/ProductCardSkeleton'
 import { useApp } from '../context/AppContext'
 import { CATEGORIES, TESTIMONIALS, getYouTubeEmbedUrl } from '../data'
 
@@ -32,7 +33,7 @@ const STATS = [
 ]
 
 export default function Home() {
-  const { products, addToCart, youtubeUrl, setPage } = useApp()
+  const { products, addToCart, youtubeUrl, setPage, loading } = useApp()
   const featured = products.filter((p) => p.featured).slice(0, 8)
   const embedUrl = getYouTubeEmbedUrl(youtubeUrl)
 
@@ -236,11 +237,18 @@ export default function Home() {
             </Button>
           </Box>
           <Grid container spacing={3}>
-            {featured.map((p) => (
-              <Grid item key={p.id} xs={12} sm={6} md={4} lg={3}>
-                <ProductCard product={p} onAdd={addToCart} />
-              </Grid>
-            ))}
+            {loading
+              ? Array.from({ length: 8 }).map((_, i) => (
+                  <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
+                    <ProductCardSkeleton />
+                  </Grid>
+                ))
+              : featured.map((p) => (
+                  <Grid item key={p._id || p.id} xs={12} sm={6} md={4} lg={3}>
+                    <ProductCard product={p} onAdd={addToCart} />
+                  </Grid>
+                ))
+            }
           </Grid>
         </Container>
       </Box>

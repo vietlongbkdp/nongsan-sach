@@ -7,6 +7,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search'
 import TuneIcon from '@mui/icons-material/Tune'
 import ProductCard from '../components/ProductCard'
+import ProductCardSkeleton from '../components/ProductCardSkeleton'
 import { useApp } from '../context/AppContext'
 import { CATEGORIES } from '../data'
 
@@ -19,7 +20,7 @@ const SORT_OPTIONS = [
 ]
 
 export default function Products() {
-  const { products, addToCart } = useApp()
+  const { products, addToCart, loading } = useApp()
   const [search, setSearch] = useState('')
   const [activeCat, setActiveCat] = useState('Tất cả')
   const [sort, setSort] = useState('default')
@@ -161,10 +162,18 @@ export default function Products() {
         </Box>
 
         {/* Products Grid */}
-        {filtered.length > 0 ? (
+        {loading ? (
+          <Grid container spacing={3}>
+            {Array.from({ length: 8 }).map((_, i) => (
+              <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
+                <ProductCardSkeleton />
+              </Grid>
+            ))}
+          </Grid>
+        ) : filtered.length > 0 ? (
           <Grid container spacing={3}>
             {filtered.map((p) => (
-              <Grid item key={p.id} xs={12} sm={6} md={4} lg={3}>
+              <Grid item key={p._id || p.id} xs={12} sm={6} md={4} lg={3}>
                 <ProductCard product={p} onAdd={addToCart} />
               </Grid>
             ))}
