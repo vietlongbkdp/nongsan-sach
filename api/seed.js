@@ -215,14 +215,6 @@ const SAMPLE_SETTINGS = [
 ]
 
 export default async function handler(req, res) {
-  // Chỉ cho phép POST để tránh vô tình gọi lại
-  if (req.method !== 'POST') {
-    return res.status(405).json({
-      error: 'Dùng POST để seed data',
-      hint: 'curl -X POST https://your-domain.vercel.app/api/seed',
-    })
-  }
-
   try {
     await dbConnect()
 
